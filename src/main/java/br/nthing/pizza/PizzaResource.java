@@ -1,5 +1,6 @@
-package br.nthing;
+package br.nthing.pizza;
 
+import br.nthing.Pizza_;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.event.Observes;
 import jakarta.transaction.Transactional;
@@ -8,7 +9,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
-import java.awt.*;
 import java.util.List;
 
 @Path("/pizza")

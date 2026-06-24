@@ -1,4 +1,4 @@
-package br.nthing;
+package br.nthing.pizza;
 
 import io.quarkus.hibernate.panache.PanacheEntity;
 import io.quarkus.hibernate.panache.PanacheRepository;
