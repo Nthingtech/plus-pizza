@@ -1,6 +1,5 @@
 package br.nthing.pizza;
 
-import br.nthing.Pizza_;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.event.Observes;
 import jakarta.transaction.Transactional;
