@@ -4,6 +4,7 @@ import io.quarkus.hibernate.panache.PanacheEntity;
 import io.quarkus.hibernate.panache.PanacheRepository;
 import jakarta.persistence.Entity;
 import org.hibernate.annotations.processing.Find;
+import org.hibernate.annotations.processing.HQL;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,8 +23,8 @@ public class Pizza extends PanacheEntity {
         @Find
         List<Pizza> findAllPizza();
 
-        @Find
-        Pizza findByName(String name);
+       @HQL("where lower(name) = lower(:name)")
+       Pizza findByName(String name);
     }
 
     @Override
