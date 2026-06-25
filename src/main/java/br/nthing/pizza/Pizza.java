@@ -8,17 +8,22 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.processing.Find;
 import org.hibernate.annotations.processing.HQL;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "normalizedName"))
 public class Pizza extends PanacheEntity {
 
+    @NotBlank
     public String name;
+
+    @NotBlank
     public String description;
     public String normalizedName;
 
@@ -37,10 +42,9 @@ public class Pizza extends PanacheEntity {
         @Find
         List<Pizza> findAllPizza();
 
-       @HQL("where lower(name) = lower(:name)")
-       Pizza findByName(String name);
+        @HQL("where normalizedName = :normalizedName")
+        Optional<Pizza> findByName(String normalizedName);
     }
-
 
     @Override
     public boolean equals(Object o) {

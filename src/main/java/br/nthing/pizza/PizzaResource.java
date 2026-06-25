@@ -41,10 +41,12 @@ public class PizzaResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Response create(Pizza pizza) {
-        String normalizeName = TextUtil.normalizeSpaces(pizza.name);
-        if (Pizza_.repo().findByName(normalizeName) != null) {
-            return Response.status(Response.Status.CONFLICT). build();
+        String key = TextUtil.normalizeSpaces(pizza.name).toLowerCase();
+
+        if (Pizza_.repo().findByName(key).isPresent()) {
+            return Response.status(Response.Status.CONFLICT).build();
         }
+
         pizza.persist();
         return Response.status(Response.Status.CREATED).entity(pizza).build();
     }
