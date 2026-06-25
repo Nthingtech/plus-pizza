@@ -21,6 +21,12 @@ public class Pizza extends PanacheEntity {
     public Pizza() {
     }
 
+    @PrePersist
+    @PreUpdate
+    void normalize() {
+        name = TextUtil.normalizeSpaces(name);
+    }
+
     public interface Repo extends PanacheRepository<Pizza> {
 
         @Find
@@ -30,11 +36,6 @@ public class Pizza extends PanacheEntity {
        Pizza findByName(String name);
     }
 
-    @PrePersist
-    @PreUpdate
-    void normalize() {
-        name = TextUtil.normalizeSpaces(name);
-    }
 
     @Override
     public boolean equals(Object o) {
