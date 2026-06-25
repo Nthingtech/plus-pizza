@@ -5,6 +5,6 @@ public class TextUtil {
 
     public static String normalizeSpaces(String text) {
         if (text == null) return null;
-        return text.trim().replaceAll("\\s+", "");
+        return text.trim().replaceAll("\\s+", " ");
     }
 }

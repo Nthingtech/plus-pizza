@@ -43,7 +43,7 @@ public class PizzaResource {
     public Response create(Pizza pizza) {
         String key = TextUtil.normalizeSpaces(pizza.name).toLowerCase();
 
-        if (Pizza_.repo().findByName(key).isPresent()) {
+        if (Pizza_.repo().findByName(key) != null) {
             return Response.status(Response.Status.CONFLICT).build();
         }
 

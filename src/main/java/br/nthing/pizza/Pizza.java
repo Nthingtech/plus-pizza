@@ -3,12 +3,14 @@ package br.nthing.pizza;
 import br.nthing.utils.TextUtil;
 import io.quarkus.hibernate.panache.PanacheEntity;
 import io.quarkus.hibernate.panache.PanacheRepository;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.processing.Find;
 import org.hibernate.annotations.processing.HQL;
 
@@ -17,7 +19,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "normalizedName"))
 public class Pizza extends PanacheEntity {
 
     @NotBlank
@@ -25,6 +26,8 @@ public class Pizza extends PanacheEntity {
 
     @NotBlank
     public String description;
+
+    @NaturalId(mutable = true)
     public String normalizedName;
 
     public Pizza() {
@@ -42,8 +45,8 @@ public class Pizza extends PanacheEntity {
         @Find
         List<Pizza> findAllPizza();
 
-        @HQL("where normalizedName = :normalizedName")
-        Optional<Pizza> findByName(String normalizedName);
+        @Find
+        Pizza findByName(String normalizedName);
     }
 
     @Override
