@@ -6,6 +6,8 @@ import io.quarkus.hibernate.panache.PanacheRepository;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import org.hibernate.annotations.processing.Find;
 import org.hibernate.annotations.processing.HQL;
 
@@ -13,10 +15,12 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "normalizedName"))
 public class Pizza extends PanacheEntity {
 
     public String name;
     public String description;
+    public String normalizedName;
 
     public Pizza() {
     }
@@ -25,6 +29,7 @@ public class Pizza extends PanacheEntity {
     @PreUpdate
     void normalize() {
         name = TextUtil.normalizeSpaces(name);
+        normalizedName = name.toLowerCase();
     }
 
     public interface Repo extends PanacheRepository<Pizza> {
