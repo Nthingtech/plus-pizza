@@ -1,8 +1,11 @@
 package br.nthing.pizza;
 
+import br.nthing.utils.TextUtil;
 import io.quarkus.hibernate.panache.PanacheEntity;
 import io.quarkus.hibernate.panache.PanacheRepository;
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import org.hibernate.annotations.processing.Find;
 import org.hibernate.annotations.processing.HQL;
 
@@ -25,6 +28,12 @@ public class Pizza extends PanacheEntity {
 
        @HQL("where lower(name) = lower(:name)")
        Pizza findByName(String name);
+    }
+
+    @PrePersist
+    @PreUpdate
+    void normalize() {
+        name = TextUtil.normalizeSpaces(name);
     }
 
     @Override
