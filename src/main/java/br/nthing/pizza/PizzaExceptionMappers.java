@@ -1,5 +1,6 @@
 package br.nthing.pizza;
 
+import br.nthing.pizza.web.ProblemDetail;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.jboss.resteasy.reactive.server.ServerExceptionMapper;
 
