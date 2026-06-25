@@ -3,10 +3,13 @@ package br.nthing.pizza;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.event.Observes;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -30,5 +33,17 @@ public class PizzaResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Pizza> findAll() {
         return Pizza_.repo().findAllPizza();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response create(Pizza pizza) {
+        if (Pizza_.repo().findByName(pizza.name) != null) {
+            return Response.status(Response.Status.CONFLICT). build();
+        }
+        pizza.persist();
+        return Response.status(Response.Status.CREATED).entity(pizza).build();
     }
 }

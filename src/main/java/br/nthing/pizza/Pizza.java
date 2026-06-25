@@ -20,7 +20,10 @@ public class Pizza extends PanacheEntity {
     public interface Repo extends PanacheRepository<Pizza> {
 
         @Find
-        List<Pizza> findAllPizza();//teste
+        List<Pizza> findAllPizza();
+
+        @Find
+        Pizza findByName(String name);
     }
 
     @Override
