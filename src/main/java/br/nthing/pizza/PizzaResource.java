@@ -33,7 +33,7 @@ public class PizzaResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Pizza> findAll() {
-        return Pizza_.repo().findAllPizza();
+        return Pizza_.repo().listAll();
     }
 
     @POST
@@ -44,7 +44,7 @@ public class PizzaResource {
         String key = TextUtil.normalizeSpaces(pizza.name).toLowerCase();
 
         if (Pizza_.repo().findByName(key) != null) {
-            return Response.status(Response.Status.CONFLICT).build();
+            throw new DuplicatePizzaNameException("Já existe uma pizza \"" + pizza.name + "\"");
         }
 
         pizza.persist();
