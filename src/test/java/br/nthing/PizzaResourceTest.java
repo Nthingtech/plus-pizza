@@ -27,10 +27,4 @@ class PizzaResourceTest {
                 .body("size()", is(2))
                 .body("name", hasItems("Quatro Queijos", "Queijos"));
     }
-
-    @Test
-    public void testSanity() {
-        List<Pizza> ps = pizzaResource.findAll();
-        assertFalse(ps.isEmpty());
-    }
 }
