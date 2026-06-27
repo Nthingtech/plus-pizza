@@ -1,4 +1,4 @@
-package br.nthing.pizza;
+package br.nthing.pizza.exceptions;
 
 import br.nthing.pizza.web.ProblemDetail;
 import org.jboss.resteasy.reactive.RestResponse;

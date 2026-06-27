@@ -14,13 +14,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class PizzaResourceUnitTest {
 
     @Inject
-    PizzaResource pizzaResource;
+    PizzaResource pizzas;
 
     @Test
     void testSanity() {
         // GIVEN
         // WHEN
-        List<Pizza> ps = pizzaResource.findAll();
+        List<Pizza> ps = pizzas.findAll();
 
         // THEN
         assertFalse(ps.isEmpty());

@@ -1,6 +1,8 @@
 package br.nthing.pizza;
 
+import br.nthing.pizza.exceptions.DuplicatePizzaNameException;
 import br.nthing.utils.TextUtil;
+import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.event.Observes;
 import jakarta.transaction.Transactional;
@@ -18,6 +20,7 @@ import java.util.List;
 public class PizzaResource {
 
     @Transactional
+    @IfBuildProfile("dev")
     public void init(@Observes StartupEvent event) {
         var pizza1 = new Pizza();
         pizza1.name = "Quatro Queijos";
