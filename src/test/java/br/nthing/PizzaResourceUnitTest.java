@@ -33,7 +33,7 @@ public class PizzaResourceUnitTest {
     @Test
     void testOrderPizzaFlow() {
         var location = Location.current();
-        var store = Store_.repo().findNearest(location);
+        var store = Store_.repo().findNearestL(location);
 
     }
 }
