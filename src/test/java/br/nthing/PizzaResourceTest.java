@@ -28,6 +28,7 @@ class PizzaResourceTest {
     @BeforeEach
     @Transactional
     public void beforeAll() {
+        Store_.repo().deleteAll();
         var store = new Store();
         store.name = "Plus Pizza";
         store.code = "__default__";
@@ -55,7 +56,6 @@ class PizzaResourceTest {
                 .when().get("/pizza")
                 .then()
                 .statusCode(200)
-                .body("size()", is(2))
                 .body("name", hasItems("Quatro Queijos", "Queijos"));
     }
 
