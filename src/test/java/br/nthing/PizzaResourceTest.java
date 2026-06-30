@@ -9,6 +9,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -24,13 +25,14 @@ class PizzaResourceTest {
     @Inject
     PizzaResource pizzaResource;
 
-    @BeforeAll
+    @BeforeEach
     @Transactional
-    public static void beforeAll() {
+    public void beforeAll() {
         var store = new Store();
-        store.name = "Plus Pizza",
-        store.code = "__default__",
+        store.name = "Plus Pizza";
+        store.code = "__default__";
         store.location = Location.current();
+        store.persist();
 
     }
 
